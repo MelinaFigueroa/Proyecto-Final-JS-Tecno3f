@@ -1,66 +1,84 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sitio Web Onepage</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Zapatos Elegantes</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <!-- Header -->
-  <header id="header">
-    <nav>
-      <ul>
-        <li><a href="#home">Inicio</a></li>
-        <li><a href="#content">Contenido</a></li>
-        <li><a href="#api-section">API</a></li>
-        <li><a href="#form">Formulario</a></li>
-      </ul>
-    </nav>
-    <h1>Mi Sitio Web Onepage</h1>
-  </header>
 
-  <!-- Sección Principal -->
-  <section id="home">
-    <h2>Bienvenidos</h2>
-    <p>Este es un sitio web de ejemplo creado como trabajo final del curso de JavaScript.</p>
-  </section>
+<body class="bg-gray-100 font-sans">
+    
+<!-- Header -->
+       <header id="header" class="bg-red-500 text-white p-6 shadow-lg">
+            <div>
+                <img src="logo.webp" alt="logo tienda" class="logo">
+                <h1 class="text-2xl font-bold mt-4">Tienda de Zapatos Elegantes</h1>
+            </div>
+            <nav class="flex justify-center">
+                <ul class=" space-x-6">
+                <li><a href="#home" class="hover:text-yellow-400">Inicio</a></li>
+                <li><a href="#products" class="hover:text-yellow-400">Productos</a></li>
+                <li><a href="#cart" class="hover:text-yellow-400">Carrito</a></li>
+                <li><a href="#contact" class="hover:text-yellow-400">Contacto</a></li>
+              </ul>
+        </nav>
 
-  <!-- Sección de Contenido -->
-  <section id="content">
-    <h2>Contenido Principal</h2>
-    <p>Aquí puedes incluir información relevante según la temática elegida.</p>
-  </section>
+        <p id="weather" class="flex justify-end">Cargando clima...</p>
+    </header>
 
-  <!-- Sección de API -->
-  <section id="api-section">
-    <h2>Consumo de API</h2>
-    <div id="api-data">
-      <!-- Aquí se mostrarán los datos de la API -->
-    </div>
-  </section>
+    <main>
+        <section id="products">
+            <h2 class="text-2xl font-bold mt-4 text-center mb-4">Nuestros Productos</h2>
+            <div class="product-grid" id="product-container"></div>
+        </section>
 
-  <!-- Sección del Formulario -->
-  <section id="form">
-    <h2>Formulario de Contacto</h2>
-    <form id="contact-form">
-      <label for="name">Nombre:</label>
-      <input type="text" id="name" name="name" required>
-      <span class="error" id="name-error"></span>
+        <section id="cart" class="">
+            <h2>Carrito de Compras</h2>
+            <div id="cart-items"></div>
+            <div class="cart-summary">
+                <p>Total: $<span id="cart-total">0.00</span></p>
+                <button id="checkout" class="flex justify-center">Finalizar Compra</button>
+            </div>
+        </section>
 
-      <label for="email">Correo Electrónico:</label>
-      <input type="email" id="email" name="email" required>
-      <span class="error" id="email-error"></span>
+        <section id="contact">
+          <h2>Contáctanos</h2>
+          <form id="contact-form">
+              <div class="form-group">
+                  <label for="name">Nombre</label>
+                  <input type="text" id="name" name="name" required>
+                  <span class="error-message" id="name-error"></span>
+              </div>
+              <div class="form-group">
+                  <label for="email">Correo Electrónico</label>
+                  <input type="email" id="email" name="email" required>
+                  <span class="error-message" id="email-error"></span>
+              </div>
+              <div class="form-group">
+                  <label for="message">Mensaje</label>
+                  <textarea id="message" name="message" required></textarea>
+                  <span class="error-message" id="message-error"></span>
+              </div>
+              <button type="submit">Enviar</button>
+          </form>
+      </section>
+      
+    </main>
 
-      <label for="message">Mensaje:</label>
-      <textarea id="message" name="message" required></textarea>
-      <span class="error" id="message-error"></span>
+    <footer>
+        <p>&copy; 2024 Zapatos Elegantes. Todos los derechos reservados.</p>
+        <div class="social-links">
+            <a href="#" aria-label="Facebook">Facebook</a>
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Twitter">Twitter</a>
+        </div>
+    </footer>
 
-      <button type="submit">Enviar</button>
-    </form>
-    <p id="form-feedback"></p>
-  </section>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
+
