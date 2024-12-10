@@ -41,21 +41,21 @@ Este proyecto está compuesto por los siguientes archivos:
 git clone https://github.com/MelinaFigueroa/Proyecto-Final-JS-Tecno3f.git
 cd zapatos-elegantes
 open index.html
-
+```
 
 ## Autores
-Abel
+
+Abel 
+https://www.linkedin.com/in/tunombre/
+
 Melina Figueroa
+https://www.linkedin.com/in/melinagfigueroa/
+
 
 ## Licencia
 
 Proyecto bajo Licencia MIT.
 
-## Contacto
-Autores: 
-Abel 
 
-Melina Figueroa
-https://www.linkedin.com/in/melinagfigueroa/
 
-```
+
