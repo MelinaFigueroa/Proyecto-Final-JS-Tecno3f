@@ -1,7 +1,6 @@
 class ShoeStore {
     constructor() {
-        // Considera mover la API key a una variable de entorno o configuración externa
-        this.apiKey = 'd63d25ddf86a1bd10bd4fd2ac405ebcf'; 
+        this.apiKey = 'd63d25ddf86a1bd10bd4fd2ac405ebcf';
         this.products = [
             { id: 1, name: 'Zapato Casual', price: 50, image: 'images/zapato-casual.webp', description: 'Cómodo y versátil' },
             { id: 2, name: 'Zapato Formal', price: 70, image: 'images/zapato-formal.webp', description: 'Elegante para ocasiones especiales' },
@@ -12,7 +11,7 @@ class ShoeStore {
         this.renderProducts();
         this.fetchWeather();
     }
-  
+
     renderProducts() {
         const container = document.getElementById('product-container');
         container.innerHTML = this.products.map(product => `
@@ -27,9 +26,8 @@ class ShoeStore {
             </div>
         `).join('');
     }
-  
+
     initEventListeners() {
-        // Usa delegación de eventos para mejorar rendimiento
         document.addEventListener('click', (event) => {
             if (event.target.classList.contains('add-to-cart')) {
                 this.handleAddToCart(event);
@@ -38,27 +36,61 @@ class ShoeStore {
                 this.handleRemoveFromCart(event);
             }
         });
-  
+
         const contactForm = document.getElementById('contact-form');
         if (contactForm) {
             contactForm.addEventListener('submit', this.handleContactSubmit.bind(this));
-            
-            // Validación en tiempo real
-            contactForm.addEventListener('input', this.validateFormInRealTime.bind(this));
+            contactForm.addEventListener('input', this.validateFormInRealTime.bind(this));  // Validación en tiempo real
+        }
+        // Agregar eventos para los botones vaciar carrito y finalizar compra
+        const emptyCartButton = document.getElementById('empty-cart');
+        if (emptyCartButton) {
+            emptyCartButton.addEventListener('click', this.handleEmptyCart.bind(this));
+        }
+
+        const checkoutButton = document.getElementById('checkout');
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', this.handleCheckout.bind(this));
         }
     }
-  
+
+    handleEmptyCart() {
+        this.cart = [];
+        this.updateCart(); // Actualiza el contenido del carrito
+        alert('Tu carrito ha sido vaciado.');
+    }
+    handleCheckout() {
+        if (this.cart.length === 0) {
+            alert('Tu carrito está vacío. No puedes finalizar la compra.');
+            return;
+        }
+        const total = this.cart.reduce((sum, product) => sum + product.price, 0);
+        alert(`Compra realizada con éxito. Total: $${total.toFixed(2)}`);
+        this.cart = []; // Limpia el carrito después de la compra
+        this.updateCart();
+    }
+
     validateFormInRealTime(event) {
         const field = event.target;
         const errorElement = document.getElementById(`${field.id}-error`);
-        
+
         if (field.id === 'email') {
             this.validateEmail(field, errorElement);
         } else if (field.id === 'name' || field.id === 'message') {
             this.validateRequired(field, errorElement);
         }
     }
-  
+
+    validateRequired(field, errorElement) {
+        if (field.value.trim() === '') {
+            errorElement.textContent = `El campo ${field.name} es obligatorio`;
+            field.classList.add('border-red-500');
+        } else {
+            errorElement.textContent = '';
+            field.classList.remove('border-red-500');
+        }
+    }
+
     validateEmail(field, errorElement) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(field.value)) {
@@ -69,58 +101,100 @@ class ShoeStore {
             field.classList.remove('border-red-500');
         }
     }
-  
-    validateRequired(field, errorElement) {
-        if (field.value.trim() === '') {
-            errorElement.textContent = `El campo ${field.name} es obligatorio`;
-            field.classList.add('border-red-500');
+
+    validateForm(name, email, message) {
+        const errors = {};
+
+        if (name.trim() === '') {
+            errors.name = 'El nombre es obligatorio';
+        }
+        if (email.trim() === '') {
+            errors.email = 'El correo electrónico es obligatorio';
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errors.email = 'Correo electrónico no válido';
+        }
+        if (message.trim() === '') {
+            errors.message = 'El mensaje es obligatorio';
+        }
+
+        return errors;
+    }
+
+    handleContactSubmit(event) {
+        event.preventDefault();
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+
+        const errors = this.validateForm(name.value, email.value, message.value);
+
+        if (Object.keys(errors).length > 0) {
+            this.showFormErrors(errors);
         } else {
-            errorElement.textContent = '';
-            field.classList.remove('border-red-500');
+            this.submitForm(name.value, email.value, message.value);
         }
     }
-  
+
+    submitForm(name, email, message) {
+        console.log('Mensaje enviado:', { name, email, message });
+        this.showSuccessModal();
+        document.getElementById('contact-form').reset();
+        this.clearFormErrors(); // Limpiar errores después del envío
+    }
+
+    clearFormErrors() {
+        const errorElements = document.querySelectorAll('.error');
+        errorElements.forEach(error => {
+            error.textContent = '';  // Limpiar mensaje de error
+        });
+
+        const inputElements = document.querySelectorAll('input, textarea');
+        inputElements.forEach(input => {
+            input.classList.remove('border-red-500');  // Eliminar el borde rojo
+        });
+    }
+
     handleAddToCart(event) {
         const productElement = event.target.closest('.product-item');
         const productId = parseInt(productElement.dataset.id);
         const product = this.products.find(p => p.id === productId);
-  
+
         if (product) {
             this.cart.push(product);
             this.updateCart();
             this.showCartNotification(product);
         }
     }
-  
+
     showCartNotification(product) {
         const notification = document.createElement('div');
         notification.classList.add('fixed', 'top-4', 'right-4', 'bg-green-500', 'text-white', 'p-4', 'rounded', 'shadow-lg');
         notification.textContent = `${product.name} agregado al carrito`;
         document.body.appendChild(notification);
-  
+
         setTimeout(() => {
             notification.remove();
         }, 2000);
     }
-  
+
     handleRemoveFromCart(event) {
         const productId = parseInt(event.target.dataset.id);
         this.cart = this.cart.filter(p => p.id !== productId);
         this.updateCart();
     }
-  
+
     updateCart() {
         const cartItemsContainer = document.getElementById('cart-items');
         const cartTotalElement = document.getElementById('cart-total');
         const checkoutButton = document.getElementById('checkout');
-  
+
         if (this.cart.length === 0) {
             cartItemsContainer.innerHTML = '<p class="text-gray-500">Tu carrito está vacío.</p>';
             cartTotalElement.textContent = '0.00';
             checkoutButton.disabled = true;
             return;
         }
-  
+
         const cartItemsHTML = this.cart.map(product => `
             <div class="flex justify-between items-center bg-gray-100 p-2 rounded-xl">
                 <span>${product.name}</span>
@@ -130,14 +204,14 @@ class ShoeStore {
                 </div>
             </div>
         `).join('');
-  
+
         cartItemsContainer.innerHTML = cartItemsHTML;
-  
+
         const total = this.cart.reduce((sum, product) => sum + product.price, 0);
         cartTotalElement.textContent = total.toFixed(2);
         checkoutButton.disabled = false;
     }
-  
+
     async fetchWeather() {
         const weatherElement = document.getElementById('weather');
         try {
@@ -154,29 +228,7 @@ class ShoeStore {
             weatherElement.textContent = 'No se pudo obtener el clima.';
         }
     }
-  
-    handleContactSubmit(event) {
-        event.preventDefault();
-        const name = document.getElementById('name');
-        const email = document.getElementById('email');
-        const message = document.getElementById('message');
-  
-        const errors = this.validateForm(name.value, email.value, message.value);
-  
-        if (Object.keys(errors).length > 0) {
-            this.showFormErrors(errors);
-        } else {
-            this.submitForm(name.value, email.value, message.value);
-        }
-    }
-  
-    submitForm(name, email, message) {
-        console.log('Mensaje enviado:', { name, email, message });
-        this.showSuccessModal();
-        document.getElementById('contact-form').reset();
-        this.clearFormErrors();
-    }
-  
+
     showSuccessModal() {
         const modal = document.createElement('div');
         modal.innerHTML = `
@@ -189,11 +241,12 @@ class ShoeStore {
             </div>
         `;
         document.body.appendChild(modal);
-  
+
         modal.querySelector('.close-modal').addEventListener('click', () => {
             modal.remove();
         });
     }
-  }
-  
-  document.addEventListener('DOMContentLoaded', () => new ShoeStore());
+}
+
+
+document.addEventListener('DOMContentLoaded', () => new ShoeStore());
