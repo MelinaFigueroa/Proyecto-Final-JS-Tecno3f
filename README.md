@@ -44,7 +44,6 @@ Este proyecto está compuesto por los siguientes archivos:
 
 ```bash
 https://github.com/MelinaFigueroa/zapateria-elegante.git
-open index.html
 ```
 
 ## Autores
