@@ -43,7 +43,7 @@ Este proyecto está compuesto por los siguientes archivos:
 2. Abre el archivo `index.html` en tu navegador.
 
 ```bash
-git clone https://github.com/MelinaFigueroa/Proyecto-Final-JS-Tecno3f.git
+https://github.com/MelinaFigueroa/zapateria-elegante.git
 cd zapatos-elegantes
 open index.html
 ```
