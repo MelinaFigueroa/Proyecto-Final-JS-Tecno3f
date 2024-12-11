@@ -2,6 +2,11 @@
 
 Bienvenido a la tienda en línea **Zapatos Elegantes**, donde podrás comprar los mejores zapatos para cualquier ocasión. Este proyecto fue desarrollado como parte del curso de JavaScript de **Tecno 3F**.
 
+# Deploy 
+
+https://melinafigueroa.github.io/zapateria-elegante/
+
+
 ## Características del Proyecto
 
 ### 1. **Interfaz de Usuario**
