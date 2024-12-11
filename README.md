@@ -57,7 +57,7 @@ https://www.linkedin.com/in/melinagfigueroa/
 
 ## Licencia
 
-Proyecto bajo Licencia MIT.
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
 
 
 
