@@ -2,6 +2,11 @@
 
 Bienvenido a la tienda en línea **Zapatos Elegantes**, donde podrás comprar los mejores zapatos para cualquier ocasión. Este proyecto fue desarrollado como parte del curso de JavaScript de **Tecno 3F**.
 
+# Deploy 
+
+https://melinafigueroa.github.io/zapateria-elegante/
+
+
 ## Características del Proyecto
 
 ### 1. **Interfaz de Usuario**
@@ -38,24 +43,22 @@ Este proyecto está compuesto por los siguientes archivos:
 2. Abre el archivo `index.html` en tu navegador.
 
 ```bash
-git clone https://github.com/MelinaFigueroa/Proyecto-Final-JS-Tecno3f.git
-cd zapatos-elegantes
-open index.html
-
+https://github.com/MelinaFigueroa/zapateria-elegante.git
+```
 
 ## Autores
-Abel
-Melina Figueroa
 
-## Licencia
-
-Proyecto bajo Licencia MIT.
-
-## Contacto
-Autores: 
 Abel 
+https://www.linkedin.com/in/tunombre/
 
 Melina Figueroa
 https://www.linkedin.com/in/melinagfigueroa/
 
-```
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+
+
+
+
