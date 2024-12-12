@@ -20,7 +20,7 @@ class ShoeStore {
                 <h3 class="text-lg font-semibold">${product.name}</h3>
                 <p class="text-gray-600">${product.description}</p>
                 <p class="text-gray-600">$${product.price.toFixed(2)}</p>
-                <button class="mt-2 w-full bg-primary text-white py-2 rounded add-to-cart hover:bg-red-600">
+                <button class="add-to-cart w-full mt-2 py-2 rounded text-white bg-red-700 hover:bg-red-600">
                     Agregar al carrito
                 </button>
             </div>
@@ -40,7 +40,8 @@ class ShoeStore {
         const contactForm = document.getElementById('contact-form');
         if (contactForm) {
             contactForm.addEventListener('submit', this.handleContactSubmit.bind(this));
-            contactForm.addEventListener('input', this.validateFormInRealTime.bind(this));  // Validación en tiempo real
+            contactForm.addEventListener('input', this.validateFormInRealTime.bind(this));
+            contactForm.addEventListener('blur', this.validateFormInRealTime.bind(this), true);
         }
         // Agregar eventos para los botones vaciar carrito y finalizar compra
         const emptyCartButton = document.getElementById('empty-cart');
